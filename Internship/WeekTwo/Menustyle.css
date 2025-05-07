@@ -1,0 +1,57 @@
+:root {
+       --primary: #e63946;
+       --secondary: #f1faee;
+       --dark: #1d3557;
+}
+          
+body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+}
+          
+.hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 100px 0;
+}
+          
+.menu-card {
+              transition: all 0.3s ease;
+              border: none;
+              border-radius: 10px;
+              overflow: hidden;
+              box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+          
+.menu-card:hover {
+              transform: translateY(-10px);
+              box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+          
+.menu-card img {
+              height: 200px;
+              object-fit: cover;
+}
+          
+.badge-price {
+              background-color: var(--primary);
+              font-size: 1rem;
+}
+          
+.category-btn {
+              border: 2px solid var(--dark);
+              color: var(--dark);
+              font-weight: 600;
+}
+          
+.category-btn.active, .category-btn:hover {
+              background-color: var(--dark);
+              color: white;
+}
+          
+.veg-icon {
+            color: green;
+            font-size: 1.2rem;
+}
