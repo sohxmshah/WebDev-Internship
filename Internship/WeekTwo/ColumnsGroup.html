@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Colgroup Example</title>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th, td {
+                border: 1px solid black;
+                text-align: left;
+                padding: 8px;
+            }
+            .col1 {
+                background-color: #f2f2f2;
+            }
+            .col2 {
+                background-color: #d9f2d9;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <colgroup>
+                <col class="col1">
+                <col class="col2">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Column 1</th>
+                    <th>Column 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Data 1</td>
+                    <td>Data 2</td>
+                </tr>
+                <tr>
+                    <td>Data 3</td>
+                    <td>Data 4</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
