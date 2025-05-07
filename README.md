@@ -25,12 +25,12 @@ Documentation: Markdown, LaTeX, Google Docs
 📁 Project Structure <br?
 
 domain-internship/ <br><br>
-├── README.md
-├── docs/              # Research papers, domain overview, notes
-├── code/              # Source code for the project
-├── reports/           # Weekly or bi-weekly progress reports
-├── presentations/     # Final and interim presentation slides
-└── references/        # Datasets, academic references, links
+├── README.md <br>
+├── docs/              # Research papers, domain overview, notes <br>
+├── code/              # Source code for the project <br>
+├── reports/           # Weekly or bi-weekly progress reports <br>
+├── presentations/     # Final and interim presentation slides <br>
+└── references/        # Datasets, academic references, links <br>
 
 
 📅 Timeline <br>
