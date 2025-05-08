@@ -1,6 +1,6 @@
 # WebDev-Internship
 
-📘 Domain Internship - README
+📘 Domain Internship - README <br>
 📌 Overview
 Welcome to the Domain Internship Program! This internship provides a focused experience in a specific technical domain, aiming to develop domain-specific skills, research capabilities, and hands-on project experience. This document outlines the structure, goals, and guidelines of the internship.
 
