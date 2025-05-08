@@ -1,0 +1,47 @@
+body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f0f0f0;
+}
+      
+.pill-loader {
+                width: 100px;
+                height: 50px;
+                border-radius: 50px;
+                background: linear-gradient(90deg, #ff7b00 50%, #8b4513 50%);
+                position: relative;
+                animation: spin 2s linear infinite;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+        
+.pill-loader::before {
+                content: "";
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                right: 5px;
+                bottom: 5px;
+                border-radius: 50px;
+                background: #fff;
+}
+        
+.particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #3498db;
+            border-radius: 50%;
+            animation: disperse 2s ease-out infinite;
+        }
+        
+@keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+}
+        
+@keyframes disperse {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--tx, 20px), var(--ty, -15px)); opacity: 0; }
+        }
