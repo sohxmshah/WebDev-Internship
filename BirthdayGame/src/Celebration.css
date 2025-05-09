@@ -1,0 +1,146 @@
+body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+}
+        
+.game-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+        
+h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+        
+.game-screen {
+            display: none;
+}
+        
+.active {
+            display: block;
+}
+        
+.question {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+}
+        
+.options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+}
+        
+.option {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 50px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+}
+        
+.option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.02);
+}
+        
+.correct {
+            background: #4CAF50 !important;
+            border-color: #4CAF50 !important;
+}
+        
+.incorrect {
+            background: #F44336 !important;
+            border-color: #F44336 !important;
+}
+        
+.result {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            min-height: 60px;
+}
+        
+.progress {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin: 20px 0;
+            height: 10px;
+}
+        
+.progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            background: white;
+            width: 0%;
+            transition: width 0.5s;
+}
+        
+button {
+            background: white;
+            color: #764ba2;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+}
+        
+button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+        
+.final-screen {
+            animation: fadeIn 1s;
+}
+        
+@keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+}
+        
+.birthday-message {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+}
+        
+.prize {
+            font-size: 1.5rem;
+            color: gold;
+            font-weight: bold;
+            margin: 20px 0;
+}
+        
+.celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+}
