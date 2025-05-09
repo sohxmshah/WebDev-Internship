@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Football Loader</title>
+       <style>
+          body {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              background: #f0f0f0;
+              margin: 0;
+          }
+          
+          .football-loader {
+              position: relative;
+              width: 100px;
+              height: 100px;
+          }
+          
+          .ball {
+              width: 50px;
+              height: 50px;
+              background: radial-gradient(circle at 30% 30%, white, #333 60%);
+              border-radius: 50%;
+              position: absolute;
+              top: 0;
+              left: 25px;
+              animation: bounce 0.5s infinite alternate;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          }
+          
+          .shadow {
+              width: 40px;
+              height: 10px;
+              background: rgba(0, 0, 0, 0.2);
+              border-radius: 50%;
+              position: absolute;
+              bottom: 0;
+              left: 30px;
+              animation: shadow 0.5s infinite alternate;
+          }
+          
+          @keyframes bounce {
+              0% {
+                  transform: translateY(0);
+              }
+              100% {
+                  transform: translateY(50px);
+              }
+          }
+          
+          @keyframes shadow {
+              0% {
+                  transform: scale(1);
+                  opacity: 0.5;
+              }
+              100% {
+                  transform: scale(0.5);
+                  opacity: 0.2;
+              }
+          }
+       </style>
+</head>
+<body>
+    <div class="football-loader">
+        <div class="ball"></div>
+        <div class="shadow"></div>
+    </div>
+</body>
+</html>
