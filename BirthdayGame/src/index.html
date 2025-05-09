@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Game for [Bestie's Name]</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-screen {
+            display: none;
+        }
+        
+        .active {
+            display: block;
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .option {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 50px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.02);
+        }
+        
+        .correct {
+            background: #4CAF50 !important;
+            border-color: #4CAF50 !important;
+        }
+        
+        .incorrect {
+            background: #F44336 !important;
+            border-color: #F44336 !important;
+        }
+        
+        .result {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            min-height: 60px;
+        }
+        
+        .progress {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin: 20px 0;
+            height: 10px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            background: white;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        button {
+            background: white;
+            color: #764ba2;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .final-screen {
+            animation: fadeIn 1s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .birthday-message {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .prize {
+            font-size: 1.5rem;
+            color: gold;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Start Screen -->
+        <div id="start-screen" class="game-screen active">
+            <h1>🎮 Birthday Quiz Challenge! 🎮</h1>
+            <p>Hey [Bestie's Name]! Let's see how well you know our friendship!</p>
+            <p>Answer these questions correctly to unlock your birthday surprise!</p>
+            <button onclick="startGame()">Start the Game!</button>
+        </div>
+        
+        <!-- Question Screens -->
+        <div id="question1" class="game-screen">
+            <div class="progress">
+                <div class="progress-bar" style="width: 0%"></div>
+            </div>
+            <div class="question">Where did we first meet?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(1, this, true)">[Correct location]</div>
+                <div class="option" onclick="checkAnswer(1, this, false)">[Wrong location 1]</div>
+                <div class="option" onclick="checkAnswer(1, this, false)">[Wrong location 2]</div>
+                <div class="option" onclick="checkAnswer(1, this, false)">[Wrong location 3]</div>
+            </div>
+            <div class="result"></div>
+        </div>
+        
+        <div id="question2" class="game-screen">
+            <div class="progress">
+                <div class="progress-bar" style="width: 25%"></div>
+            </div>
+            <div class="question">What's our favorite activity to do together?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(2, this, false)">[Wrong activity 1]</div>
+                <div class="option" onclick="checkAnswer(2, this, true)">[Correct activity]</div>
+                <div class="option" onclick="checkAnswer(2, this, false)">[Wrong activity 2]</div>
+                <div class="option" onclick="checkAnswer(2, this, false)">[Wrong activity 3]</div>
+            </div>
+            <div class="result"></div>
+        </div>
+        
+        <div id="question3" class="game-screen">
+            <div class="progress">
+                <div class="progress-bar" style="width: 50%"></div>
+            </div>
+            <div class="question">What's my favorite thing about you?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(3, this, false)">[Wrong thing 1]</div>
+                <div class="option" onclick="checkAnswer(3, this, false)">[Wrong thing 2]</div>
+                <div class="option" onclick="checkAnswer(3, this, true)">[Correct thing]</div>
+                <div class="option" onclick="checkAnswer(3, this, false)">[Wrong thing 3]</div>
+            </div>
+            <div class="result"></div>
+        </div>
+        
+        <div id="question4" class="game-screen">
+            <div class="progress">
+                <div class="progress-bar" style="width: 75%"></div>
+            </div>
+            <div class="question">What's our inside joke?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(4, this, false)">[Wrong joke 1]</div>
+                <div class="option" onclick="checkAnswer(4, this, false)">[Wrong joke 2]</div>
+                <div class="option" onclick="checkAnswer(4, this, false)">[Wrong joke 3]</div>
+                <div class="option" onclick="checkAnswer(4, this, true)">[Correct joke]</div>
+            </div>
+            <div class="result"></div>
+        </div>
+        
+        <!-- Final Screen -->
+        <div id="final-screen" class="game-screen final-screen">
+            <h1>🎉 HAPPY BIRTHDAY! 🎉</h1>
+            <div class="birthday-message">
+                <p>You did it! You know our friendship inside out!</p>
+                <p>Wishing you the most amazing birthday filled with joy, laughter, and everything you love!</p>
+                <p>Thank you for being the most incredible best friend I could ever ask for.</p>
+            </div>
+            <div class="prize">
+                Your birthday surprise is: <br>
+                [Describe your actual gift/plans here]
+            </div>
+            <button onclick="celebrate()">Click for Celebration!</button>
+        </div>
+    </div>
+    
+    <div class="celebration" id="celebration"></div>
+
+    <script>
+        let currentQuestion = 1;
+        let score = 0;
+        
+        function startGame() {
+            document.getElementById('start-screen').classList.remove('active');
+            document.getElementById('question1').classList.add('active');
+        }
+        
+        function checkAnswer(questionNum, element, isCorrect) {
+            // Disable all options
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                if (opt === element && isCorrect) {
+                    opt.classList.add('correct');
+                } else if (opt === element && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+            
+            // Show result
+            const result = element.parentElement.nextElementSibling;
+            if (isCorrect) {
+                result.textContent = "Correct! That's right!";
+                score++;
+            } else {
+                result.textContent = "Not quite! But that's okay!";
+            }
+            
+            // Move to next question after delay
+            setTimeout(() => {
+                if (questionNum < 4) {
+                    document.getElementById(`question${questionNum}`).classList.remove('active');
+                    document.getElementById(`question${questionNum+1}`).classList.add('active');
+                } else {
+                    showFinalScreen();
+                }
+            }, 1500);
+        }
+        
+        function showFinalScreen() {
+            document.getElementById('question4').classList.remove('active');
+            document.getElementById('final-screen').classList.add('active');
+        }
+        
+        function celebrate() {
+            // Create celebration elements
+            const celebration = document.getElementById('celebration');
+            
+            // Create confetti
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'absolute';
+                confetti.style.width = '15px';
+                confetti.style.height = '15px';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.top = '-20px';
+                confetti.style.borderRadius = '50%';
+                confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                celebration.appendChild(confetti);
+                
+                // Create keyframes for falling animation
+                const keyframes = `
+                    @keyframes fall {
+                        to {
+                            transform: translateY(100vh) rotate(${Math.random() * 360}deg);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                
+                // Add style if not already added
+                if (!document.getElementById('celebration-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'celebration-style';
+                    style.innerHTML = keyframes;
+                    document.head.appendChild(style);
+                }
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+            
+            // Play birthday audio
+            const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'); // Replace with actual birthday song
+            audio.loop = true;
+            audio.play().catch(e => console.log("Auto-play prevented: ", e));
+        }
+    </script>
+</body>
+</html>
