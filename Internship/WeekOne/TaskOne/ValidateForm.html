@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact Form with Validation</title>
+        <style>
+            :root {
+                --primary: #4361ee;
+                --primary-light: #4895ef;
+                --secondary: #3f37c9;
+                --dark: #1a1a2e;
+                --light: #f8f9fa;
+                --error: #e63946;
+                --success: #2a9d8f;
+                --border-radius: 8px;
+                --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                --transition: all 0.3s ease;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f5f7fa;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+
+            .form-container {
+                background: white;
+                width: 100%;
+                max-width: 600px;
+                padding: 2.5rem;
+                border-radius: var(--border-radius);
+                box-shadow: var(--box-shadow);
+            }
+
+            .form-header {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .form-header h2 {
+                color: var(--primary);
+                margin-bottom: 0.5rem;
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+            }
+
+            .form-control {
+                width: 100%;
+                padding: 0.8rem 1rem;
+                border: 2px solid #e0e0e0;
+                border-radius: var(--border-radius);
+                font-size: 1rem;
+                transition: var(--transition);
+            }
+
+            .form-control:focus {
+                border-color: var(--primary-light);
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            }
+
+            textarea.form-control {
+                min-height: 150px;
+                resize: vertical;
+            }
+
+            .error-message {
+                color: var(--error);
+                font-size: 0.8rem;
+                margin-top: 0.3rem;
+                display: none;
+            }
+
+            .form-control.error {
+                border-color: var(--error);
+            }
+
+            .submit-btn {
+                background: var(--primary);
+                color: white;
+                border: none;
+                padding: 1rem;
+                font-size: 1rem;
+                font-weight: 600;
+                border-radius: var(--border-radius);
+                cursor: pointer;
+                width: 100%;
+                transition: var(--transition);
+                margin-top: 0.5rem;
+            }
+
+            .submit-btn:hover {
+                background: var(--secondary);
+                transform: translateY(-2px);
+            }
+
+            .success-message {
+                display: none;
+                background-color: rgba(42, 157, 143, 0.2);
+                color: var(--success);
+                padding: 1rem;
+                border-radius: var(--border-radius);
+                margin-top: 1rem;
+                text-align: center;
+                font-weight: 500;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Contact Us</h2>
+                <p>Fill out the form and we'll get back to you soon</p>
+            </div>
+
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Your name">
+                    <div class="error-message" id="nameError">Please enter your name</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="your.email@example.com">
+                    <div class="error-message" id="emailError">Please enter a valid email address</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" class="form-control" placeholder="How can we help you?"></textarea>
+                    <div class="error-message" id="messageError">Message must be at least 10 characters long</div>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+                
+                <div class="success-message" id="successMessage">
+                    Thank you! Your message has been sent successfully.
+                </div>
+            </form>
+        </div>
+
+        <script>
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Reset previous errors
+                resetErrors();
+                
+                // Get form values
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const message = document.getElementById('message').value.trim();
+                
+                // Validate fields
+                let isValid = true;
+                
+                if (name === '') {
+                    showError('nameError', 'name');
+                    isValid = false;
+                }
+                
+                if (email === '' || !isValidEmail(email)) {
+                    showError('emailError', 'email');
+                    isValid = false;
+                }
+                
+                if (message === '' || message.length < 10) {
+                    showError('messageError', 'message');
+                    isValid = false;
+                }
+                
+                // If form is valid, show success message
+                if (isValid) {
+                    // In a real application, you would send the data to a server here
+                    document.getElementById('successMessage').style.display = 'block';
+                    this.reset();
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 5000);
+                }
+            });
+            
+            // Helper function to validate email format
+            function isValidEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+            
+            // Helper function to show error messages
+            function showError(errorId, inputId) {
+                document.getElementById(errorId).style.display = 'block';
+                document.getElementById(inputId).classList.add('error');
+            }
+            
+            // Helper function to reset all error states
+            function resetErrors() {
+                const errorMessages = document.querySelectorAll('.error-message');
+                const inputs = document.querySelectorAll('.form-control');
+                
+                errorMessages.forEach(msg => {
+                    msg.style.display = 'none';
+                });
+                
+                inputs.forEach(input => {
+                    input.classList.remove('error');
+                });
+                
+                document.getElementById('successMessage').style.display = 'none';
+            }
+            
+            // Add real-time validation for better UX
+            document.getElementById('name').addEventListener('input', function() {
+                if (this.value.trim() !== '') {
+                    this.classList.remove('error');
+                    document.getElementById('nameError').style.display = 'none';
+                }
+            });
+            
+            document.getElementById('email').addEventListener('input', function() {
+                if (this.value.trim() !== '' && isValidEmail(this.value.trim())) {
+                    this.classList.remove('error');
+                    document.getElementById('emailError').style.display = 'none';
+                }
+            });
+            
+            document.getElementById('message').addEventListener('input', function() {
+                if (this.value.trim() !== '' && this.value.trim().length >= 10) {
+                    this.classList.remove('error');
+                    document.getElementById('messageError').style.display = 'none';
+                }
+            });
+        </script>
+    </body>
+</html>
