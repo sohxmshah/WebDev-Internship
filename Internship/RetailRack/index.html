@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Business Inventory Pro</title>
+      <style>
+          :root {
+              --primary: #4361ee;
+              --secondary: #3f37c9;
+              --accent: #4895ef;
+              --danger: #f72585;
+              --success: #4cc9f0;
+              --light: #f8f9fa;
+              --dark: #212529;
+              --gray: #6c757d;
+              --warning: #ff9e00;
+          }
+          
+          * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          }
+          
+          body {
+              background-color: #f5f7fa;
+              color: var(--dark);
+              line-height: 1.6;
+          }
+          
+          .container {
+              max-width: 1200px;
+              margin: 0 auto;
+              padding: 20px;
+          }
+          
+          header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 30px;
+              padding-bottom: 15px;
+              border-bottom: 1px solid #e0e0e0;
+          }
+          
+          h1 {
+              color: var(--primary);
+              font-weight: 700;
+          }
+          
+          .dashboard {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+              gap: 20px;
+              margin-bottom: 30px;
+          }
+          
+          .stat-card {
+              background: white;
+              border-radius: 10px;
+              padding: 20px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+          
+          .stat-card:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+          }
+          
+          .stat-card h3 {
+              font-size: 14px;
+              color: var(--gray);
+              margin-bottom: 10px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+          }
+          
+          .stat-card p {
+              font-size: 28px;
+              font-weight: 700;
+              color: var(--dark);
+          }
+          
+          .stat-card.total { border-left: 4px solid var(--primary); }
+          .stat-card.low { border-left: 4px solid var(--warning); }
+          .stat-card.value { border-left: 4px solid var(--success); }
+          
+          .actions {
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 30px;
+          }
+          
+          .btn {
+              padding: 10px 20px;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+              font-weight: 600;
+              transition: all 0.3s ease;
+          }
+          
+          .btn-primary {
+              background-color: var(--primary);
+              color: white;
+          }
+          
+          .btn-primary:hover {
+              background-color: var(--secondary);
+          }
+          
+          .btn-danger {
+              background-color: var(--danger);
+              color: white;
+          }
+          
+          .btn-danger:hover {
+              background-color: #d1145a;
+          }
+          
+          .btn-success {
+              background-color: var(--success);
+              color: white;
+          }
+          
+          .btn-success:hover {
+              background-color: #3ab0d3;
+          }
+          
+          .modal {
+              display: none;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: rgba(0, 0, 0, 0.5);
+              z-index: 1000;
+              justify-content: center;
+              align-items: center;
+          }
+          
+          .modal-content {
+              background-color: white;
+              padding: 30px;
+              border-radius: 10px;
+              width: 90%;
+              max-width: 500px;
+              box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+          }
+          
+          .modal-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 20px;
+          }
+          
+          .modal-header h2 {
+              color: var(--primary);
+          }
+          
+          .close-btn {
+              background: none;
+              border: none;
+              font-size: 24px;
+              cursor: pointer;
+              color: var(--gray);
+          }
+          
+          .form-group {
+              margin-bottom: 15px;
+          }
+          
+          .form-group label {
+              display: block;
+              margin-bottom: 5px;
+              font-weight: 600;
+              color: var(--dark);
+          }
+          
+          .form-control {
+              width: 100%;
+              padding: 10px;
+              border: 1px solid #ddd;
+              border-radius: 5px;
+              font-size: 16px;
+          }
+          
+          .form-control:focus {
+              outline: none;
+              border-color: var(--accent);
+          }
+          
+          .products-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+              gap: 20px;
+          }
+          
+          .product-card {
+              background: white;
+              border-radius: 10px;
+              padding: 20px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+              transition: all 0.3s ease;
+              position: relative;
+          }
+          
+          .product-card:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+          }
+          
+          .product-card.low-stock {
+              border-left: 4px solid var(--warning);
+          }
+          
+          .product-card h3 {
+              color: var(--primary);
+              margin-bottom: 10px;
+          }
+          
+          .product-card .description {
+              color: var(--gray);
+              margin-bottom: 15px;
+              font-size: 14px;
+          }
+          
+          .product-card .price {
+              font-weight: 700;
+              font-size: 18px;
+              color: var(--dark);
+              margin-bottom: 5px;
+          }
+          
+          .product-card .quantity {
+              display: flex;
+              align-items: center;
+              margin-bottom: 15px;
+          }
+          
+          .product-card .quantity span {
+              margin: 0 10px;
+              font-weight: 600;
+          }
+          
+          .product-card .qty-btn {
+              width: 30px;
+              height: 30px;
+              border: none;
+              border-radius: 50%;
+              background-color: var(--light);
+              color: var(--dark);
+              font-weight: bold;
+              cursor: pointer;
+              transition: all 0.2s ease;
+          }
+          
+          .product-card .qty-btn:hover {
+              background-color: var(--accent);
+              color: white;
+          }
+          
+          .product-card .min-stock {
+              font-size: 13px;
+              color: var(--gray);
+          }
+          
+          .product-card .min-stock.warning {
+              color: var(--warning);
+              font-weight: 600;
+          }
+          
+          .product-actions {
+              display: flex;
+              justify-content: space-between;
+              margin-top: 15px;
+          }
+          
+          .product-actions button {
+              flex: 1;
+              margin: 0 5px;
+              padding: 8px;
+              font-size: 14px;
+          }
+          
+          .empty-state {
+              text-align: center;
+              padding: 50px 20px;
+              color: var(--gray);
+          }
+          
+          .empty-state h3 {
+              margin-bottom: 10px;
+              color: var(--dark);
+          }
+          
+          @media (max-width: 768px) {
+              .dashboard {
+                  grid-template-columns: 1fr;
+              }
+              
+              .products-grid {
+                  grid-template-columns: 1fr;
+              }
+          }
+      </style>
+  </head>
+  <body>
+      <div class="container">
+          <header>
+              <h1>Inventory Pro</h1>
+              <button class="btn btn-primary" onclick="openModal()">Add Product</button>
+          </header>
+          
+          <div class="dashboard">
+              <div class="stat-card total">
+                  <h3>Total Products</h3>
+                  <p id="total-products">0</p>
+              </div>
+              <div class="stat-card low">
+                  <h3>Low Stock Items</h3>
+                  <p id="low-stock">0</p>
+              </div>
+              <div class="stat-card value">
+                  <h3>Inventory Value</h3>
+                  <p id="total-value">$0.00</p>
+              </div>
+          </div>
+          
+          <div id="product-list">
+              <div class="empty-state">
+                  <h3>No Products Found</h3>
+                  <p>Add your first product to get started</p>
+                  <button class="btn btn-primary" onclick="openModal()">Add Product</button>
+              </div>
+          </div>
+      </div>
+      
+      <!-- Add Product Modal -->
+      <div class="modal" id="productModal">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h2>Add New Product</h2>
+                  <button class="close-btn" onclick="closeModal()">&times;</button>
+              </div>
+              <form id="productForm" onsubmit="event.preventDefault(); addProduct();">
+                  <div class="form-group">
+                      <label for="product-name">Product Name</label>
+                      <input type="text" id="product-name" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="product-desc">Description</label>
+                      <textarea id="product-desc" class="form-control" rows="3"></textarea>
+                  </div>
+                  <div class="form-group">
+                      <label for="product-price">Price ($)</label>
+                      <input type="number" id="product-price" class="form-control" step="0.01" min="0" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="product-quantity">Quantity</label>
+                      <input type="number" id="product-quantity" class="form-control" min="0" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="product-min">Minimum Stock Level</label>
+                      <input type="number" id="product-min" class="form-control" min="0" required>
+                  </div>
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-success" style="width: 100%;">Save Product</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+      
+      <script>
+          let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+          
+          // DOM Loaded
+          document.addEventListener('DOMContentLoaded', function() {
+              renderProducts();
+              updateDashboard();
+          });
+          
+          // Modal Functions
+          function openModal() {
+              document.getElementById('productModal').style.display = 'flex';
+          }
+          
+          function closeModal() {
+              document.getElementById('productModal').style.display = 'none';
+              resetForm();
+          }
+          
+          // Product Functions
+          function addProduct() {
+              const product = {
+                  id: Date.now(),
+                  name: document.getElementById('product-name').value,
+                  description: document.getElementById('product-desc').value,
+                  price: parseFloat(document.getElementById('product-price').value),
+                  quantity: parseInt(document.getElementById('product-quantity').value),
+                  minStock: parseInt(document.getElementById('product-min').value)
+              };
+              
+              inventory.push(product);
+              saveInventory();
+              renderProducts();
+              closeModal();
+              updateDashboard();
+          }
+          
+          function saveInventory() {
+              localStorage.setItem('inventory', JSON.stringify(inventory));
+          }
+          
+          function renderProducts() {
+              const container = document.getElementById('product-list');
+              
+              if (inventory.length === 0) {
+                  container.innerHTML = `
+                      <div class="empty-state">
+                          <h3>No Products Found</h3>
+                          <p>Add your first product to get started</p>
+                          <button class="btn btn-primary" onclick="openModal()">Add Product</button>
+                      </div>
+                  `;
+                  return;
+              }
+              
+              container.innerHTML = '<div class="products-grid" id="products-container"></div>';
+              const productsContainer = document.getElementById('products-container');
+              
+              inventory.forEach(product => {
+                  const isLowStock = product.quantity < product.minStock;
+                  const minStockClass = isLowStock ? 'warning' : '';
+                  
+                  const card = document.createElement('div');
+                  card.className = `product-card ${isLowStock ? 'low-stock' : ''}`;
+                  card.innerHTML = `
+                      <h3>${product.name}</h3>
+                      <p class="description">${product.description || 'No description'}</p>
+                      <p class="price">$${product.price.toFixed(2)}</p>
+                      <div class="quantity">
+                          <button class="qty-btn" onclick="updateQuantity(${product.id}, -1)">-</button>
+                          <span>${product.quantity}</span>
+                          <button class="qty-btn" onclick="updateQuantity(${product.id}, 1)">+</button>
+                      </div>
+                      <p class="min-stock ${minStockClass}">Min Stock: ${product.minStock}</p>
+                      <div class="product-actions">
+                          <button class="btn btn-primary" onclick="updateQuantity(${product.id}, 10)">+10</button>
+                          <button class="btn btn-danger" onclick="deleteProduct(${product.id})">Delete</button>
+                      </div>
+                  `;
+                  productsContainer.appendChild(card);
+              });
+          }
+          
+          function updateQuantity(id, change) {
+              const product = inventory.find(p => p.id === id);
+              if (product) {
+                  product.quantity += change;
+                  if (product.quantity < 0) product.quantity = 0;
+                  saveInventory();
+                  renderProducts();
+                  updateDashboard();
+              }
+          }
+          
+          function deleteProduct(id) {
+              if (confirm('Are you sure you want to delete this product?')) {
+                  inventory = inventory.filter(p => p.id !== id);
+                  saveInventory();
+                  renderProducts();
+                  updateDashboard();
+              }
+          }
+          
+          function updateDashboard() {
+              document.getElementById('total-products').textContent = inventory.length;
+              
+              const lowStockCount = inventory.filter(p => p.quantity < p.minStock).length;
+              document.getElementById('low-stock').textContent = lowStockCount;
+              
+              const totalValue = inventory.reduce((sum, p) => sum + (p.price * p.quantity), 0);
+              document.getElementById('total-value').textContent = `$${totalValue.toFixed(2)}`;
+          }
+          
+          function resetForm() {
+              document.getElementById('product-name').value = '';
+              document.getElementById('product-desc').value = '';
+              document.getElementById('product-price').value = '';
+              document.getElementById('product-quantity').value = '';
+              document.getElementById('product-min').value = '';
+          }
+      </script>
+  </body>
+</html>
