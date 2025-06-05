@@ -1,0 +1,190 @@
+body {
+  font-family: Arial, sans-serif;
+  background: black;
+  margin: 0;
+  padding: 0;
+}
+
+.animation-box {
+  width: 90%;
+  max-width: 1000px;
+  height: 100vh;
+  background-color: black;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.animation-container {
+  width: 100%;
+  height: 100%;
+}
+
+.first-text {
+  font-size: 4.4rem;
+  position: absolute;
+  left: 2.5rem;
+  top: 5rem;
+  opacity: 0;
+  animation: topFadeOut 4s forwards;
+  animation-delay: 0s;
+  color: white;
+}
+
+.second-text {
+  font-size: 3.4rem;
+  position: absolute;
+  top: 8.5rem;
+  opacity: 0;
+  animation: rightFadeInOut 5s forwards;
+  animation-delay: 4.5s;
+  color: #ccc;
+}
+
+.third-text {
+  transform: rotate(-90deg);
+  font-size: 2rem;
+  position: absolute;
+  left: 45%;
+  top: 45%;
+  opacity: 0;
+  animation: topFadeOutVertical 5s forwards;
+  animation-delay: 10s;
+  color: #a3ddf0;
+  white-space: nowrap;
+}
+
+.fourth-text {
+  font-size: 3.4rem;
+  position: absolute;
+  top: 10.5rem;
+  left: 10%;
+  opacity: 0;
+  color: #f0a3be;
+  animation: fadeInOut 6s forwards;
+  animation-delay: 15.5s;
+}
+
+.fifth-text {
+  font-size: 5rem;
+  position: absolute;
+  left: 5%;
+  bottom: 25%;
+  opacity: 0;
+  color: #f0eba3;
+  animation: bottomFadeOut 6s forwards;
+  animation-delay: 22s;
+}
+
+.sixth-text {
+  font-size: 5rem;
+  position: absolute;
+  left: 5%;
+  bottom: 25%;
+  opacity: 0;
+  color: #dda3f0;
+  animation: bottomFadeOut 7s forwards;
+  animation-delay: 29s;
+}
+
+@keyframes topFadeOut {
+  0% {
+    top: -3rem;
+    opacity: 0;
+  }
+  75% {
+    top: 25%;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bottomFadeOut {
+  0% {
+    bottom: -5rem;
+    opacity: 0;
+  }
+  75% {
+    bottom: 25%;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes topFadeOutVertical {
+  0% {
+    top: -3rem;
+    opacity: 0;
+  }
+  75% {
+    top: 45%;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rightFadeInOut {
+  0% {
+    right: -3rem;
+    opacity: 0;
+  }
+  75% {
+    right: 10rem;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    right: 10rem;
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  45% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0%;
+  }
+}
+
+/* ✅ Mobile responsiveness only */
+@media screen and (max-width: 600px) {
+  .first-text {
+    font-size: 2.2rem;
+    left: 1rem;
+    top: 3rem;
+  }
+
+  .second-text {
+    font-size: 1.8rem;
+    top: 6rem;
+  }
+
+  .third-text {
+    font-size: 1.2rem;
+    left: 40%;
+    top: 40%;
+  }
+
+  .fourth-text {
+    font-size: 2rem;
+    top: 8rem;
+    left: 5%;
+  }
+
+  .fifth-text,
+  .sixth-text {
+    font-size: 2.5rem;
+    left: 3%;
+    bottom: 20%;
+  }
+}
