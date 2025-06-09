@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Solar System Planets</title>
+<style>
+  /* CSS Variables for colors and spacing */
+  :root {
+    --color-bg: #ffffff;
+    --color-text-primary: #111827;
+    --color-text-secondary: #6b7280;
+    --color-primary: #2563eb;
+    --color-accent: #10b981;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+    --radius-corner: 0.75rem;
+    --spacing-gap: 1.5rem;
+    --font-base: 'Poppins', sans-serif;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  /* Base styles */
+  body {
+    margin: 0;
+    background-color: var(--color-bg);
+    font-family: var(--font-base);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  header h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  header p {
+    color: var(--color-text-secondary);
+    font-size: 1.125rem;
+    margin-top: 0.5rem;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-gap);
+  }
+
+  /* Planet cards container */
+  .planet-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  /* Single planet card */
+  .planet-card {
+    background: #f9f9fb;
+    border-radius: var(--radius-corner);
+    box-shadow: 0 4px 10px var(--color-shadow);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+  }
+
+  .planet-card:hover,
+  .planet-card:focus {
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.3);
+    outline: none;
+  }
+
+  .planet-circle {
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+  }
+
+  /* Planet circle sizes and colors */
+  /* Sizes are relative scales for display only, not actual scale */
+  .planet-mercury {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #a39e9f, #7e7b7d);
+  }
+  .planet-venus {
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(135deg, #e1c699, #b2926f);
+  }
+  .planet-earth {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #3a76f0, #2f55ab);
+    box-shadow: 0 0 15px 3px rgba(58, 118, 240, 0.6);
+  }
+  .planet-mars {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #c1440e, #7a2a0c);
+  }
+  .planet-jupiter {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #d6b89c, #a67853);
+  }
+  .planet-saturn {
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, #dbceae, #a3966a);
+    position: relative;
+  }
+
+  .planet-saturn::before {
+    content: "";
+    position: absolute;
+    top: 45%;
+    left: -25px;
+    width: 140px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(210, 190, 140, 0.5), transparent 80%);
+    transform: rotate(-15deg);
+    pointer-events: none;
+  }
+  .planet-uranus {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #66d5dc, #2f8f91);
+  }
+  .planet-neptune {
+    width: 75px;
+    height: 75px;
+    background: linear-gradient(135deg, #2a52be, #1f3d7a);
+  }
+
+  /* Planet name */
+  .planet-name {
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin: 0 0 0.7rem 0;
+    color: var(--color-text-primary);
+    text-align: center;
+  }
+
+  .planet-info {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  /* Selected planet highlight */
+  .planet-card.selected {
+    box-shadow: 0 0 0 4px var(--color-primary);
+  }
+
+  /* Details section */
+  #planet-details {
+    margin-top: 3rem;
+    background: #f9f9fb;
+    border-radius: var(--radius-corner);
+    box-shadow: 0 4px 10px var(--color-shadow);
+    padding: 2rem;
+  }
+
+  #planet-details h2 {
+    margin-top: 0;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--color-primary);
+  }
+
+  #planet-details p {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    header h1 {
+      font-size: 2.25rem;
+    }
+    .planet-list {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1.25rem;
+    }
+    .planet-card {
+      padding: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <h1>Solar System Planets</h1>
+      <p>Explore the planets in our solar system. Click a planet to learn more.</p>
+    </header>
+    <main>
+      <ul class="planet-list" role="list" aria-label="List of planets">
+        <li tabindex="0" class="planet-card" data-planet="mercury" role="button" aria-pressed="false" aria-describedby="desc-mercury">
+          <div class="planet-circle planet-mercury" aria-hidden="true"></div>
+          <h3 class="planet-name">Mercury</h3>
+          <p id="desc-mercury" class="planet-info">Size: 0.38 Earth</p>
+        </li>
+        <li tabindex="0" class="planet-card" data-planet="venus" role="button" aria-pressed="false" aria-describedby="desc-venus">
+          <div class="planet-circle planet-venus" aria-hidden="true"></div>
+          <h3 class="planet-name">Venus</h3>
+          <p id="desc-venus" class="planet-info">Size: 0.95 Earth</p>
+        </li>
+        <li tabindex="0" class="planet-card" data-planet="earth" role="button" aria-pressed="false" aria-describedby="desc-earth">
+          <div class="planet-circle planet-earth" aria-hidden="true"></div>
+          <h3 class="planet-name">Earth</h3>
+          <p id="desc-earth" class="planet-info">Size: 1 Earth</p>
+        </li>
+        <li tabindex="0" class="planet-card" data-planet="mars" role="button" aria-pressed="false" aria-describedby="desc-mars">
+          <div class="planet-circle planet-mars" aria-hidden="true"></div>
+          <h3 class="planet-name">Mars</h3>
+          <p id="desc-mars" class="planet-info">Size: 0.53 Earth</p>
+        </li>
+        <li tabindex="0" class="planet-card" data-planet="jupiter" role="button" aria-pressed="false" aria-describedby="desc-jupiter">
+          <div class="planet-circle planet-jupiter" aria-hidden="true"></div>
+          <h3 class="planet-name">Jupiter</h3>
+          <p id="desc-jupiter" class="planet-info">Size: 11.2 Earth</p>
+        </li>
+        <li tabindex="0" class="planet-card" data-planet="saturn" role="button" aria-pressed="false" aria-describedby="desc-saturn">
+          <div class="planet-circle planet-saturn" aria-hidden="true"></div>
+          <h3 class="planet-name">Saturn</h3>
+          <p id="desc-saturn" class="planet-info">Size: 9.45 Earth</p>
+        </li>
+        <li tabindex="0" class="planet-card" data-planet="uranus" role="button" aria-pressed="false" aria-describedby="desc-uranus">
+          <div class="planet-circle planet-uranus" aria-hidden="true"></div>
+          <h3 class="planet-name">Uranus</h3>
+          <p id="desc-uranus" class="planet-info">Size: 4.01 Earth</p>
+        </li>
+        <li tabindex="0" class="planet-card" data-planet="neptune" role="button" aria-pressed="false" aria-describedby="desc-neptune">
+          <div class="planet-circle planet-neptune" aria-hidden="true"></div>
+          <h3 class="planet-name">Neptune</h3>
+          <p id="desc-neptune" class="planet-info">Size: 3.88 Earth</p>
+        </li>
+      </ul>
+
+      <section id="planet-details" aria-live="polite" aria-atomic="true" tabindex="0" hidden>
+        <!-- Planet details content updated dynamically -->
+      </section>
+    </main>
+  </div>
+
+<script>
+  // Data for each planet details
+  const planetDetailsData = {
+    mercury: {
+      name: "Mercury",
+      description:
+        "Mercury is the smallest planet in the Solar System and closest to the Sun. It has a rocky surface and experiences extreme temperature variations.",
+      size: "0.38 Earth",
+      distance: "57.9 million km from Sun",
+      moons: 0
+    },
+    venus: {
+      name: "Venus",
+      description:
+        "Venus is the second planet from the Sun and has a thick, toxic atmosphere that traps heat, making it the hottest planet.",
+      size: "0.95 Earth",
+      distance: "108.2 million km from Sun",
+      moons: 0
+    },
+    earth: {
+      name: "Earth",
+      description:
+        "Earth is the third planet from the Sun and the only known place with life. It has a diverse climate and a single moon.",
+      size: "1 Earth",
+      distance: "149.6 million km from Sun",
+      moons: 1
+    },
+    mars: {
+      name: "Mars",
+      description:
+        "Mars is known as the Red Planet due to iron oxide on its surface. It has two small moons and may have liquid water beneath its surface.",
+      size: "0.53 Earth",
+      distance: "227.9 million km from Sun",
+      moons: 2
+    },
+    jupiter: {
+      name: "Jupiter",
+      description:
+        "Jupiter is the largest planet in the Solar System and a gas giant. It has a strong magnetic field and dozens of moons.",
+      size: "11.2 Earth",
+      distance: "778.3 million km from Sun",
+      moons: 79
+    },
+    saturn: {
+      name: "Saturn",
+      description:
+        "Saturn is famous for its spectacular ring system. It is the second largest planet and a gas giant with many moons.",
+      size: "9.45 Earth",
+      distance: "1.4 billion km from Sun",
+      moons: 62
+    },
+    uranus: {
+      name: "Uranus",
+      description:
+        "Uranus is an ice giant with a blue-green hue due to methane in its atmosphere. It rotates on its side compared to other planets.",
+      size: "4.01 Earth",
+      distance: "2.9 billion km from Sun",
+      moons: 27
+    },
+    neptune: {
+      name: "Neptune",
+      description:
+        "Neptune is the farthest planet from the Sun and an ice giant. It has strong winds and storms and a deep blue color.",
+      size: "3.88 Earth",
+      distance: "4.5 billion km from Sun",
+      moons: 14
+    }
+  };
+
+  const planetCards = document.querySelectorAll('.planet-card');
+  const detailsSection = document.getElementById('planet-details');
+
+  function clearSelection() {
+    planetCards.forEach(card => {
+      card.classList.remove('selected');
+      card.setAttribute('aria-pressed', 'false');
+    });
+    detailsSection.hidden = true;
+    detailsSection.innerHTML = '';
+  }
+
+  function showPlanetDetails(planetKey) {
+    clearSelection();
+    const card = document.querySelector(`.planet-card[data-planet="${planetKey}"]`);
+    if (card) {
+      card.classList.add('selected');
+      card.setAttribute('aria-pressed', 'true');
+    }
+    const data = planetDetailsData[planetKey];
+    if (data) {
+      detailsSection.hidden = false;
+      detailsSection.innerHTML = `
+        <h2>${data.name}</h2>
+        <p><strong>Size:</strong> ${data.size}</p>
+        <p><strong>Distance from Sun:</strong> ${data.distance}</p>
+        <p><strong>Number of Moons:</strong> ${data.moons}</p>
+        <p>${data.description}</p>
+      `;
+      detailsSection.focus();
+    }
+  }
+
+  planetCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      const planet = card.getAttribute('data-planet');
+      showPlanetDetails(planet);
+    });
+    card.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        const planet = card.getAttribute('data-planet');
+        showPlanetDetails(planet);
+      }
+    });
+  });
+
+  // Initially show Earth details
+  showPlanetDetails('earth');
+</script>
+</body>
+</html>
+
