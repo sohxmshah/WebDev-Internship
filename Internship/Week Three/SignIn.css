@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+      --bg-color: #ffffff;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --card-radius: 0.75rem;
+      --shadow-light: rgba(0,0,0,0.07);
+      --shadow-hover: rgba(37, 99, 235, 0.3);
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+      box-sizing: border-box;
+}
+
+body, html {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-secondary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+}
+
+/* Sticky nav */
+nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg-color);
+      height: 64px;
+      padding: 0 2rem;
+      box-shadow: 0 2px 12px var(--shadow-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      z-index: 10;
+}
+
+nav .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      cursor: default;
+}
+
+nav .nav-links {
+      display: flex;
+      gap: 1.25rem;
+}
+
+nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color var(--transition);
+      outline-offset: 2px;
+}
+
+nav a:hover,
+nav a:focus-visible {
+      color: var(--text-primary);
+      outline: none;
+}
+
+main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 1rem 5rem;
+      max-width: 400px;
+      margin: 0 auto;
+      perspective: 1000px;
+}
+
+    /* Hero */
+.hero {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      user-select: none;
+}
+
+.hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+      line-height: 1.1;
+}
+
+.hero p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin: 0.5rem 0 0;
+}
+
+/* Login card */
+.login-card {
+      background: var(--bg-color);
+      border-radius: var(--card-radius);
+      padding: 3rem 2.25rem 2rem;
+      box-shadow: 0 14px 40px var(--shadow-light);
+      color: var(--text-primary);
+      width: 100%;
+      transform-style: preserve-3d;
+      transition: transform var(--transition);
+      cursor: default;
+      user-select: none;
+      will-change: transform;
+}
+
+/* 3D subtle rotation on mouse move inside the card */
+.login-card:hover {
+      box-shadow: 0 20px 50px var(--shadow-hover);
+}
+
+.login-card:focus-within {
+      outline: none;
+      box-shadow: 0 20px 50px var(--shadow-hover);
+}
+
+/* We'll add rotation effect with JS based on mouse position */
+/* Reset transform on mouse leave */
+
+/* Form Titles */
+h2 {
+      font-weight: 700;
+      font-size: 36px;
+      margin: 0 0 1.25rem 0;
+      user-select: text;
+}
+
+p.subtitle {
+      margin: 0 0 3rem 0;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      user-select: text;
+}
+
+/* Form Styling */
+form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+}
+
+label {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+      user-select: text;
+}
+
+input[type="email"],
+input[type="password"] {
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 0.85rem 1rem;
+      border: 1.8px solid #d1d5db;
+      border-radius: 0.5rem;
+      outline-offset: 2px;
+      transition: border-color var(--transition), box-shadow var(--transition);  
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+      border-color: var(--text-primary);
+      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.12);
+      outline: none;
+}
+
+input::placeholder {
+      color: #9ca3af;
+}
+
+/* Submit button */
+button[type="submit"] {
+      margin-top: 2rem;
+      background-color: var(--text-primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 1rem;
+      border: none;
+      border-radius: var(--card-radius);
+      cursor: pointer;
+      transition: background-color var(--transition), box-shadow var(--transition);
+      user-select: none;
+}
+
+button[type="submit"]:hover,
+button[type="submit"]:focus-visible {
+      background-color: #2563eb;
+      box-shadow: 0 0 14px rgba(37, 99, 235, 0.6);
+      outline: none;
+}
+
+/* Responsive */
+@media (max-width: 450px) {
+      main {
+        max-width: 100%;
+      }
+      .hero h1 {
+        font-size: 36px;
+      }
+      .login-card {
+        padding: 2.5rem 1.5rem 1.5rem;
+      }
+}
