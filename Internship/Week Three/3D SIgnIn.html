@@ -1,53 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" >
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>3D Login V2 - Elegant Interface</title>
-  <link rel="stylesheet" href="SignIn.css">
-</head>
-<body>
-  <nav role="navigation" aria-label="Primary Navigation">
-    <div class="logo">3DLoginV2</div>
-    <div class="nav-links">
-      <a href="#login-form" tabindex="0">Log In</a>
-      <a href="#" tabindex="0">Register</a>
-      <a href="#" tabindex="0">Help</a>
-    </div>
-  </nav>
-
-  <main role="main">
-    <section aria-labelledby="login-header" class="login-card" tabindex="0" id="login-card">
-      <div class="hero">
-        <h2 id="login-header">Sign In to Your Account</h2>
-        <p class="subtitle">Secure and seamless access to your workspace.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>3D Login V2 - Elegant Interface</title>
+    <link rel="stylesheet" href="SignIn.css">
+  </head>
+  <body>
+    <nav role="navigation" aria-label="Primary Navigation">
+      <div class="logo">3DLoginV2</div>
+      <div class="nav-links">
+        <a href="#login-form" tabindex="0">Log In</a>
+        <a href="#" tabindex="0">Register</a>
+        <a href="#" tabindex="0">Help</a>
       </div>
-      <form id="login-form" novalidate>
-        <label for="login-email">Email Address</label>
-        <input
-          type="email"
-          id="login-email"
-          name="email"
-          placeholder="you@example.com"
-          autocomplete="email"
-          required
-          aria-required="true"
-        />
-        <label for="login-password">Password</label>
-        <input
-          type="password"
-          id="login-password"
-          name="password"
-          placeholder="••••••••"
-          autocomplete="current-password"
-          minlength="6"
-          required
-          aria-required="true"
-        />
-        <button type="submit" aria-label="Sign In">Sign In</button>
-      </form>
-    </section>
-  </main>
-  <script src="SignIn.js"></script>
-</body>
+    </nav>
+  
+    <main role="main">
+      <section aria-labelledby="login-header" class="login-card" tabindex="0" id="login-card">
+        <div class="hero">
+          <h2 id="login-header">Sign In to Your Account</h2>
+          <p class="subtitle">Secure and seamless access to your workspace.</p>
+        </div>
+        <form id="login-form" novalidate>
+          <label for="login-email">Email Address</label>
+          <input
+            type="email"
+            id="login-email"
+            name="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+            aria-required="true"
+          />
+          <label for="login-password">Password</label>
+          <input
+            type="password"
+            id="login-password"
+            name="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            minlength="6"
+            required
+            aria-required="true"
+          />
+          <button type="submit" aria-label="Sign In">Sign In</button>
+        </form>
+      </section>
+    </main>
+    <script src="SignIn.js"></script>
+  </body>
 </html>
