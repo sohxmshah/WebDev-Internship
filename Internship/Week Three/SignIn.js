@@ -13,11 +13,11 @@ card.addEventListener('mousemove', e => {
       const ry = ((x - cx) / cx) * 10;
 
       card.style.transform = `rotateX(${-rx}deg) rotateY(${ry}deg)`;
-    });
+});
 
-    card.addEventListener('mouseleave', () => {
+card.addEventListener('mouseleave', () => {
       card.style.transform = 'rotateX(0) rotateY(0)';
-    });
+});
 
 // Form validation example
 const form = document.getElementById('login-form');
